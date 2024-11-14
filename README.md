@@ -98,8 +98,9 @@ The SME Business Suite is a comprehensive cross-platform management app designed
 - **Accounting Software:** Sync with accounting tools like QuickBooks, Xero, etc.
 - **Export Capabilities:** Export data in various formats (CSV, PDF, etc.) for further analysis.
 
-## Getting
-### Additional Sections for README.md
+## Getting started
+
+#### Here is how to flow:
 
 #### Roadmap
 
