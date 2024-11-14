@@ -100,6 +100,14 @@ The SME Business Suite is a comprehensive cross-platform management app designed
 
 ## Getting started
 
+```bash
+setup-nativescript-stackblitz && ns preview
+#or
+npm install
+#or
+npm run dev
+```
+
 #### Here is how to flow:
 
 #### Roadmap
