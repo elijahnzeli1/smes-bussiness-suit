@@ -1,18 +1,73 @@
 import * as React from "react";
 import { StyleSheet } from "react-nativescript";
+import { ItemEventData } from "@nativescript/core";
+import { ListView } from "react-nativescript";
+import { supabase } from "../services/supabase";
+
+interface Sale {
+    id?: number;
+    amount: number;
+    date: string;
+}
 
 export function SalesScreen() {
     const [amount, setAmount] = React.useState("");
-    const [items, setItems] = React.useState([]);
+    const [items, setItems] = React.useState<Sale[]>([]);
 
-    const recordSale = () => {
-        // TODO: Implement sale recording logic with Supabase
-        console.log("Recording sale:", amount);
+    React.useEffect(() => {
+        fetchSales();
+    }, []);
+
+    const fetchSales = async () => {
+        const { data: salesData, error: fetchError } = await supabase
+            .from('sales')
+            .select('*')
+            .order('date', { ascending: false });
+
+        if (fetchError) {
+            console.error('Error fetching sales:', fetchError);
+        } else {
+            setItems(salesData || []);
+        }
+    };
+
+    const recordSale = async () => {
+        if (!amount) {
+            console.error('Amount is required');
+            return;
+        }
+
+        const saleData = {
+            amount: parseFloat(amount),
+            date: new Date().toISOString()
+        };
+
+        const { error } = await supabase
+            .from('sales')
+            .insert([saleData]);
+
+        if (error) {
+            console.error('Error recording sale:', error);
+        } else {
+            setAmount('');
+            fetchSales();
+        }
+    };
+
+    const cellFactory = (item: Sale) => {
+        return (
+            <stackLayout className="p-2 border-b">
+                <label className="text-lg">${item.amount.toFixed(2)}</label>
+                <label className="text-sm text-gray-500">
+                    {new Date(item.date).toLocaleDateString()}
+                </label>
+            </stackLayout>
+        );
     };
 
     return (
         <scrollView>
-            <flexboxLayout className="p-4" style={styles.container}>
+            <flexboxLayout className="container p-4">
                 <label className="text-2xl font-bold mb-4">Sales Management</label>
 
                 {/* New Sale Form */}
@@ -36,23 +91,15 @@ export function SalesScreen() {
                 {/* Recent Sales List */}
                 <stackLayout className="bg-white p-4 rounded-lg">
                     <label className="text-lg mb-2">Recent Sales</label>
-                    <listView items={items}>
-                        <listView.itemTemplate>
-                            <stackLayout className="p-2 border-b">
-                                <label className="text-lg">{{ item.amount }}</label>
-                                <label className="text-sm text-gray-500">{{ item.date }}</label>
-                            </stackLayout>
-                        </listView.itemTemplate>
-                    </listView>
+                    <ListView
+                        items={items}
+                        cellFactory={cellFactory}
+                        onItemTap={(args: ItemEventData) => {
+                            console.log('Selected sale:', items[args.index]);
+                        }}
+                    />
                 </stackLayout>
             </flexboxLayout>
         </scrollView>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        height: "100%",
-        flexDirection: "column",
-    }
-});

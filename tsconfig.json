@@ -7,9 +7,13 @@
     "emitDecoratorMetadata": true,
     "noEmitHelpers": true,
     "noEmitOnError": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "forceConsistentCasingInFileNames": true,
     "jsx": "react",
     "lib": ["ESNext", "dom"],
     "baseUrl": ".",
+    "types": ["@nativescript/core/ui/styling/css-shadow"],
     "paths": {
       "~/*": ["src/*"],
       "@/*": ["src/*"]

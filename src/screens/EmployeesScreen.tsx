@@ -1,9 +1,19 @@
 import * as React from "react";
 import { StyleSheet } from "react-nativescript";
+import { ItemEventData } from "@nativescript/core";
+import { ListView } from "react-nativescript";
 import { supabase } from "../services/supabase";
 
+interface Employee {
+    id?: number;
+    name: string;
+    position: string;
+    email: string;
+    phone: string;
+}
+
 export function EmployeesScreen() {
-    const [employees, setEmployees] = React.useState([]);
+    const [employees, setEmployees] = React.useState<Employee[]>([]);
     const [newEmployee, setNewEmployee] = React.useState({
         name: "",
         position: "",
@@ -41,9 +51,20 @@ export function EmployeesScreen() {
         }
     };
 
+    const renderItem = (item: Employee) => {
+        return (
+            <stackLayout className="p-2 border-b">
+                <label className="text-lg font-bold">{item.name}</label>
+                <label className="text-md text-blue-500">{item.position}</label>
+                <label className="text-sm">{item.email}</label>
+                <label className="text-sm text-gray-500">{item.phone}</label>
+            </stackLayout>
+        );
+    };
+
     return (
         <scrollView>
-            <flexboxLayout className="p-4" style={styles.container}>
+            <flexboxLayout className="container p-4">
                 <label className="text-2xl font-bold mb-4">Employee Management</label>
 
                 {/* Add Employee Form */}
@@ -86,16 +107,13 @@ export function EmployeesScreen() {
                 {/* Employee List */}
                 <stackLayout className="bg-white p-4 rounded-lg">
                     <label className="text-lg mb-2">Employee List</label>
-                    <listView items={employees}>
-                        <listView.itemTemplate>
-                            <stackLayout className="p-2 border-b">
-                                <label className="text-lg font-bold">{{ item.name }}</label>
-                                <label className="text-md text-blue-500">{{ item.position }}</label>
-                                <label className="text-sm">{{ item.email }}</label>
-                                <label className="text-sm text-gray-500">{{ item.phone }}</label>
-                            </stackLayout>
-                        </listView.itemTemplate>
-                    </listView>
+                    <ListView
+                        items={employees}
+                        cellFactory={(item) => renderItem(item as Employee)}
+                        onItemTap={(args: ItemEventData) => {
+                            console.log('Selected item:', employees[args.index]);
+                        }}
+                    />
                 </stackLayout>
             </flexboxLayout>
         </scrollView>

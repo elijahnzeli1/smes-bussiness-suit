@@ -1,0 +1,17 @@
+.screen-two-container {
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    background-color: yellow;
+}
+
+.screen-two-text {
+    text-align: center;
+    font-size: 24;
+    color: black;
+}
+
+.screen-two-button {
+    font-size: 24;
+    color: #2e6ddf;
+}

@@ -1,0 +1,10 @@
+.screen-one-container {
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.screen-one-button {
+    font-size: 24;
+    color: #2e6ddf;
+}

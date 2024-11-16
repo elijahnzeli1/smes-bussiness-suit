@@ -5,4 +5,8 @@ export type MainStackParamList = {
   Analytics: undefined;
   CRM: undefined;
   Employees: undefined;
+  ScreenOne: undefined;
+    ScreenTwo: {
+        message?: string;
+    };
 };

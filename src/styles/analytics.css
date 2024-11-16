@@ -1,0 +1,44 @@
+.analytics-container {
+    height: 100%;
+    flex-direction: column;
+}
+
+.metric-card {
+    padding: 16;
+    margin: 4;
+    background-color: white;
+    border-radius: 8;
+}
+
+.metric-title {
+    font-size: 16;
+    margin-bottom: 4;
+}
+
+.metric-value {
+    font-size: 24;
+    font-weight: bold;
+}
+
+.metric-value-sales {
+    color: #10B981;  /* text-green-500 */
+}
+
+.metric-value-order {
+    color: #3B82F6;  /* text-blue-500 */
+}
+
+.metric-value-customers {
+    color: #8B5CF6;  /* text-purple-500 */
+}
+
+.metric-value-inventory {
+    color: #F97316;  /* text-orange-500 */
+}
+
+.refresh-button {
+    background-color: #3B82F6;
+    color: white;
+    padding: 8;
+    border-radius: 4;
+}

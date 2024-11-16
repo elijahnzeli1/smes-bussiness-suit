@@ -1,10 +1,21 @@
-const webpack = require('@nativescript/webpack');
+const webpack = require('webpack');
+const dotenv = require('dotenv');
 
 module.exports = (env) => {
-  webpack.init(env);
+    // Load env file
+    const envPath = '.env';
+    const envVars = dotenv.config({ path: envPath }).parsed || {};
 
-  // Learn how to customize:
-  // https://docs.nativescript.org/webpack
-
-  return webpack.resolveConfig();
+    return {
+        // ... other webpack config
+        plugins: [
+            new webpack.DefinePlugin({
+                'process.env': JSON.stringify({
+                    SUPABASE_URL: envVars.SUPABASE_URL,
+                    SUPABASE_KEY: envVars.SUPABASE_KEY,
+                }),
+            }),
+            // ... other plugins
+        ],
+    };
 };

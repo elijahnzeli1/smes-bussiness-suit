@@ -1,0 +1,38 @@
+.dashboard-container {
+    height: 100%;
+    flex-direction: column;
+}
+
+.stat-card {
+    padding: 8;
+    margin: 4;
+    background-color: white;
+    border-radius: 8;
+}
+
+.nav-button {
+    padding: 16;
+    margin-bottom: 8;
+    border-radius: 8;
+    color: white;
+}
+
+.nav-button-sales {
+    background-color: #3B82F6;  /* blue-500 */
+}
+
+.nav-button-inventory {
+    background-color: #10B981;  /* green-500 */
+}
+
+.nav-button-analytics {
+    background-color: #8B5CF6;  /* purple-500 */
+}
+
+.nav-button-crm {
+    background-color: #F97316;  /* orange-500 */
+}
+
+.nav-button-employees {
+    background-color: #14B8A6;  /* teal-500 */
+}
