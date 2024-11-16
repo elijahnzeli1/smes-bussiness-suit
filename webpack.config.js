@@ -2,9 +2,7 @@ const webpack = require('webpack');
 const dotenv = require('dotenv');
 
 module.exports = (env) => {
-    // Load env file
-    const envPath = '.env';
-    const envVars = dotenv.config({ path: envPath }).parsed || {};
+    const envVars = dotenv.config().parsed || {};
 
     return {
         // ... other webpack config
@@ -15,7 +13,6 @@ module.exports = (env) => {
                     SUPABASE_KEY: envVars.SUPABASE_KEY,
                 }),
             }),
-            // ... other plugins
         ],
     };
 };
